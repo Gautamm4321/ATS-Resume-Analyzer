@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg">
+
+<div class="container">
+    <h1>Your ATS Score</h1>
+
+    <div class="score">{{ score }}%</div>
+    <h3>{{ verdict }}</h3>
+
+    <h2>Suggestions</h2>
+    <ul>
+        {% for item in feedback %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Analyze another resume</a>
+</div>
+
+</body>
+</html>
