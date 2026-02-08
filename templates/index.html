@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ATS Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <h1>ATS Resume Analyzer</h1>
+    <p>Upload your resume (PDF) to check ATS compatibility</p>
+
+    <form action="/analyze" method="POST" enctype="multipart/form-data">
+        <input type="file" name="resume" required>
+        <button type="submit">Analyze Resume</button>
+    </form>
+</div>
+
+</body>
+</html>
