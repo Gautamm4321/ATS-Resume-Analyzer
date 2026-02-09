@@ -1,12 +1,18 @@
+/* ---------- PAGE BASE + BACKGROUND ---------- */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     min-height: 100vh;
-    background: url("../images/bg.jpg") no-repeat center center fixed;
+
+    /* 🔥 FIXED BACKGROUND */
+    background-image: url("/static/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;   /* horizontal center */
+    align-items: center;       /* vertical center */
 }
 
 /* ---------- MAIN BOX ---------- */
