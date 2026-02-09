@@ -5,9 +5,14 @@ app = Flask(__name__)
 
 def extract_text_from_pdf(file):
     text = ""
-    with pdfplumber.open(file) as pdf:
-        for page in pdf.pages:
-            text += page.extract_text() or ""
+    try:
+        with pdfplumber.open(file) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text
+    except Exception as e:
+        print("PDF Error:", e)
     return text.lower()
 
 @app.route('/')
@@ -18,15 +23,22 @@ def index():
 def analyze():
     resume_text = ""
 
-    if 'resume' in request.files:
-        file = request.files['resume']
-        if file.filename.endswith('.pdf'):
-            resume_text = extract_text_from_pdf(file)
+    if 'resume' not in request.files:
+        return "No file uploaded", 400
+
+    file = request.files['resume']
+
+    if file.filename == "":
+        return "No file selected", 400
+
+    if not file.filename.lower().endswith('.pdf'):
+        return "Only PDF files allowed", 400
+
+    resume_text = extract_text_from_pdf(file)
 
     score = 0
     feedback = []
 
-    # Section checks
     education = ["education", "qualification", "academic"]
     experience = ["experience", "work experience", "employment"]
     skills = ["skills", "technical skills"]
@@ -67,4 +79,4 @@ def analyze():
     )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
