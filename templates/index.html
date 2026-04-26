@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATS Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1> ATS Resume Analyzer</h1>
+            <p>Powered by Advanced AI — Real AI-driven ATS scoring</p>
+        </header>
+
+        {% if error %}
+        <div class="error-box">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <form action="/analyze" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="upload-zone" id="dropZone">
+                <input type="file" name="resume" id="resumeInput" accept=".pdf" required hidden />
+                <label for="resumeInput" class="upload-label">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">Drop your resume here</div>
+                    <div class="upload-sub">or click to browse (PDF only)</div>
+                    <div class="file-name" id="fileName"></div>
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label for="job_description">📋 Job Description (Optional but recommended)</label>
+                <textarea name="job_description" id="job_description" rows="5"
+                    placeholder="Paste the job description here for accurate matching..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="candidate_info">👤 More About the Candidate (Optional)</label>
+                <textarea name="candidate_info" id="candidate_info" rows="4"
+                    placeholder="Add extra details: career goals, achievements, target role, location preferences, etc."></textarea>
+            </div>
+
+            <button type="submit" class="analyze-btn" id="submitBtn">
+                <span id="btnText"> Analyze </span>
+                <span id="btnLoader" hidden>⏳ Analyzing...</span>
+            </button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
