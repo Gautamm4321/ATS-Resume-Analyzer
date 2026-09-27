@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Result | AI ATS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>AI Analysis Complete</h1>
+            <p>Candidate: <strong>{{ result.candidate_name }}</strong></p>
+        </header>
+
+        <div class="summary-box">
+            <h3>📝 Candidate Summary</h3>
+            <p>{{ result.candidate_summary }}</p>
+            <div class="verdict">🎯 <em>{{ result.verdict }}</em></div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card score-main">
+                <div class="stat-num">{{ result.ats_score }}%</div>
+                <div class="stat-label">ATS Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ result.match_score }}%</div>
+                <div class="stat-label">Job Match</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ result.skills_found }}</div>
+                <div class="stat-label">Skills Found</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ result.experience_years }}</div>
+                <div class="stat-label">Years Exp.</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">{{ result.missing_keywords_count }}</div>
+                <div class="stat-label">Missing Keywords</div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="info-box strength">
+                <h3>✅ Strengths</h3>
+                <ul>{% for s in result.strengths %}<li>{{ s }}</li>{% endfor %}</ul>
+            </div>
+            <div class="info-box weakness">
+                <h3>⚠️ Weaknesses</h3>
+                <ul>{% for w in result.weaknesses %}<li>{{ w }}</li>{% endfor %}</ul>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="info-box matched">
+                <h3>🎯 Skills Matched</h3>
+                <div class="tag-list">
+                    {% for k in result.skills_matched %}<span class="tag tag-good">{{ k }}</span>{% endfor %}
+                </div>
+            </div>
+            <div class="info-box missing">
+                <h3>❌ Missing Keywords</h3>
+                <div class="tag-list">
+                    {% for k in result.missing_keywords %}<span class="tag tag-bad">{{ k }}</span>{% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box improvements">
+            <h3>💡 AI Improvement Suggestions</h3>
+            <ol>{% for i in result.improvements %}<li>{{ i }}</li>{% endfor %}</ol>
+        </div>
+
+        <a href="/" class="back-btn">← Analyze Another Resume</a>
+    </div>
+</body>
+</html>
